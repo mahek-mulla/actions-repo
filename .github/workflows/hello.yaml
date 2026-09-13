@@ -6,8 +6,17 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  greet:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Hello from Actions"
+      - run: echo "Building the project"
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["16", "18", "20"]
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Running Tests ${{matrix.node-version }}"
