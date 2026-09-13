@@ -1,4 +1,6 @@
 name: hello-workflow
+env:
+  APP_ENV: development
 on: 
   push:
     branches:
@@ -20,3 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "Running Tests ${{matrix.node-version }}"
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Deploying $APP_ENV build"
