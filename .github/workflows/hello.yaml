@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: echo "Building the project"
       - run: echo "build output" > build.txt
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: build.txt
