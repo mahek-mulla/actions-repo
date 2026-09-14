@@ -19,16 +19,11 @@ jobs:
           name: build-artifact
           path: build.txt
   test:
-    needs: build
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ["16", "18", "20"]
-    steps:
-      - uses: actions/checkout@v4
-      - run: echo "Running Tests ${{matrix.node-version }}"
+    uses: ./.github/workflows/reusable-test.yml
+    with:
+      node-version: "18"
   deploy:
-    needs: test
+    needs: [build,test]
     runs-on: ubuntu-latest
     environment: staging
     steps:
